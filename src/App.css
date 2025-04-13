@@ -13,6 +13,26 @@
   }
 }
 
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.form-section {
+  flex: 1;
+  padding-right: 20px;
+  max-width: 40%;
+}
+
+.list-section {
+  flex: 2;
+  padding-left: 20px;
+  max-width: 60%;
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
