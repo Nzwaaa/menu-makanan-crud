@@ -42,7 +42,7 @@ const App = () => {
   return (
     <div>
       <h1 style={{ textAlign: "center" }}>Daftar Menu</h1>
-
+  
       {/* 🔍 Search Bar */}
       <div style={{ textAlign: "center", margin: "20px" }}>
         <input
@@ -58,20 +58,25 @@ const App = () => {
           }}
         />
       </div>
-
+  
       <AddMenu onAdd={handleAddMenu} />
-
+  
       {editingMenu ? (
         <EditMenu menu={editingMenu} onSave={handleSaveMenu} />
-      ) : (
+      ) : filteredMenuItems.length > 0 ? (
         <MenuList
           menuItems={filteredMenuItems}
           onEdit={handleEditMenu}
           onDelete={handleDeleteMenu}
         />
+      ) : (
+        <p style={{ textAlign: "center", color: "gray", marginTop: "20px" }}>
+          Menu yang Anda cari tidak tersedia.
+        </p>
       )}
     </div>
   );
+  
 };
 
 export default App;

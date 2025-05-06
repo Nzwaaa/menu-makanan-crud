@@ -20,10 +20,10 @@ const MenuList = ({ menuItems, onEdit, onDelete }) => {
         >
           <thead>
             <tr style={{ backgroundColor: "#f2f2f2" }}>
-              <th>Nama</th>
-              <th>Kategori</th>
-              <th>Harga</th>
-              <th>Aksi</th>
+            <th style={{ width: "30%" }}>Nama Menu</th>
+            <th style={{ width: "20%" }}>Kategori</th>
+            <th style={{ width: "20%" }}>Harga</th>
+            <th style={{ width: "10%" }}>Aksi</th>
             </tr>
           </thead>
           <tbody>
