@@ -43,18 +43,20 @@ const App = () => {
     <div>
       <h1 style={{ textAlign: "center" }}>Daftar Menu</h1>
   
-      {/* 🔍 Search Bar */}
-      <div style={{ textAlign: "center", margin: "20px" }}>
+   
+      <div style={{ textAlign: "center", marginBottom: "-15px" }}>
         <input
           type="text"
           placeholder="Cari menu ..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{
-            padding: "8px",
-            width: "300px",
+            padding: "10px",
+            width: "100%",
+            maxWidth: "80%",
             borderRadius: "5px",
             border: "1px solid #ccc",
+            boxSizing: "border-box",
           }}
         />
       </div>

@@ -4,21 +4,42 @@ const MenuItem = ({ item, onEdit, onDelete }) => {
   return (
     <tr>
       <td>{item.name}</td>
-      <td>{item.category}</td> {/* Menampilkan kategori daripada deskripsi */}
-      <td>Rp {item.price}</td>
+      <td>{item.category}</td>
+      <td>Rp {item.price.toLocaleString("id-ID")}</td>
       <td>
-        <button onClick={() => onEdit(item)}>Edit</button>
-        <button
-          onClick={() => {
-            const confirmDelete = window.confirm(`Yakin ingin menghapus menu "${item.name}"?`);
-            if (confirmDelete) {
-              onDelete(item.id);
-            }
-          }}
-          style={{ marginLeft: "10px", color: "red" }}
-        >
-          Hapus
-        </button>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <button
+            onClick={() => onEdit(item)}
+            style={{
+              padding: "6px 12px",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => {
+              const confirmDelete = window.confirm(`Yakin ingin menghapus menu "${item.name}"?`);
+              if (confirmDelete) {
+                onDelete(item.id);
+              }
+            }}
+            style={{
+              padding: "6px 12px",
+              backgroundColor: "#dc3545",
+              color: "#fff",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            Hapus
+          </button>
+        </div>
       </td>
     </tr>
   );
