@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 
 const EditMenu = ({ menu, onSave, onCancel }) => {
   const [name, setName] = useState(menu.name);
-  const [description, setDescription] = useState(menu.description);
+  const [category, setCategory] = useState(menu.category); // Menggunakan kategori
   const [price, setPrice] = useState(menu.price);
 
   useEffect(() => {
     setName(menu.name);
-    setDescription(menu.description);
+    setCategory(menu.category); // Menambahkan setCategory
     setPrice(menu.price);
   }, [menu]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedMenu = { ...menu, name, description, price };
+    const updatedMenu = { ...menu, name, category, price }; // Menyertakan kategori
     onSave(updatedMenu);
   };
 
@@ -56,15 +56,17 @@ const EditMenu = ({ menu, onSave, onCancel }) => {
 
           <div>
             <label style={{ fontWeight: "bold", display: "block", marginBottom: "6px" }}>
-              Deskripsi
+              Kategori
             </label>
-            <input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               required
               style={{ padding: "10px", width: "100%", borderRadius: "5px", border: "1px solid #ccc" }}
-            />
+            >
+              <option value="Makanan">Makanan</option>
+              <option value="Minuman">Minuman</option>
+            </select>
           </div>
 
           <div>

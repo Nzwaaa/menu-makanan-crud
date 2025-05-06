@@ -3,16 +3,16 @@ import addMenuIcon from '../assets/add_menu.png';
 
 const AddMenu = ({ onAdd }) => {
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("Makanan"); // Menggunakan kategori
   const [price, setPrice] = useState("");
   const [showForm, setShowForm] = useState(false); // 🔥 state untuk tampilkan form
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newMenu = { id: Date.now(), name, description, price };
+    const newMenu = { id: Date.now(), name, category, price }; // Menyertakan kategori
     onAdd(newMenu);
     setName("");
-    setDescription("");
+    setCategory("Makanan"); // Mengatur kategori kembali ke "Makanan"
     setPrice("");
     setShowForm(false); // 🔥 sembunyikan form setelah simpan
   };
@@ -83,14 +83,21 @@ const AddMenu = ({ onAdd }) => {
                 required
                 style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
               />
-              <input
-                type="text"
-                placeholder="Deskripsi"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-              />
+              {/* Dropdown untuk kategori */}
+              <div style={{ marginBottom: "10px" }}>
+                <label htmlFor="category" style={{ fontWeight: "bold", marginBottom: "6px", display: "block" }}>
+                  Kategori
+                </label>
+                <select
+                  id="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  style={{ width: "100%", padding: "8px" }}
+                >
+                  <option value="Makanan">Makanan</option>
+                  <option value="Minuman">Minuman</option>
+                </select>
+              </div>
               <input
                 type="number"
                 placeholder="Harga"
@@ -111,7 +118,6 @@ const AddMenu = ({ onAdd }) => {
       )}
     </div>
   );
-  
 };
 
 export default AddMenu;
