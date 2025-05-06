@@ -3,18 +3,18 @@ import addMenuIcon from '../assets/add_menu.png';
 
 const AddMenu = ({ onAdd }) => {
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("Makanan"); // Menggunakan kategori
+  const [category, setCategory] = useState("Makanan");
   const [price, setPrice] = useState("");
-  const [showForm, setShowForm] = useState(false); // 🔥 state untuk tampilkan form
+  const [showForm, setShowForm] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newMenu = { id: Date.now(), name, category, price }; // Menyertakan kategori
+    const newMenu = { id: Date.now(), name, category, price };
     onAdd(newMenu);
     setName("");
-    setCategory("Makanan"); // Mengatur kategori kembali ke "Makanan"
+    setCategory("Makanan");
     setPrice("");
-    setShowForm(false); // 🔥 sembunyikan form setelah simpan
+    setShowForm(false);
   };
 
   return (
@@ -71,44 +71,83 @@ const AddMenu = ({ onAdd }) => {
             borderRadius: "12px",
             boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)",
             zIndex: 9999,
-            minWidth: "300px"
+            minWidth: "320px",
+            width: "90%",
+            maxWidth: "400px",
           }}>
+            {/* CSS inline style tambahan untuk konsistensi */}
+            <style>
+              {`
+                .input-wrapper label {
+                  font-weight: bold;
+                  display: block;
+                  margin-bottom: 6px;
+                }
+                .input-wrapper input,
+                .input-wrapper select {
+                  width: 100%;
+                  padding: 10px;
+                  border-radius: 6px;
+                  border: 1px solid #ccc;
+                  box-sizing: border-box;
+                }
+                .form-button {
+                  padding: 10px 16px;
+                  border: none;
+                  border-radius: 5px;
+                  cursor: pointer;
+                }
+              `}
+            </style>
+
             <form onSubmit={handleSubmit}>
               <h3 style={{ marginBottom: "20px", textAlign: "center" }}>Tambah Menu</h3>
-              <input
-                type="text"
-                placeholder="Nama Menu"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-              />
-              {/* Dropdown untuk kategori */}
-              <div style={{ marginBottom: "10px" }}>
-                <label htmlFor="category" style={{ fontWeight: "bold", marginBottom: "6px", display: "block" }}>
-                  Kategori
-                </label>
+
+              <div className="input-wrapper" style={{ marginBottom: "16px" }}>
+                <label>Nama Menu</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="input-wrapper" style={{ marginBottom: "16px" }}>
+                <label>Kategori</label>
                 <select
-                  id="category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  style={{ width: "100%", padding: "8px" }}
                 >
                   <option value="Makanan">Makanan</option>
                   <option value="Minuman">Minuman</option>
                 </select>
               </div>
-              <input
-                type="number"
-                placeholder="Harga"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                required
-                style={{ width: "100%", padding: "8px", marginBottom: "20px" }}
-              />
+
+              <div className="input-wrapper" style={{ marginBottom: "20px" }}>
+                <label>Harga</label>
+                <input
+                  type="number"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  required
+                />
+              </div>
+
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <button type="submit" style={{ padding: "8px 16px" }}>Simpan</button>
-                <button type="button" onClick={() => setShowForm(false)} style={{ padding: "8px 16px" }}>
+                <button 
+                  type="submit" 
+                  className="form-button" 
+                  style={{ backgroundColor: "#4CAF50", color: "#fff" }}
+                >
+                  Simpan
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => setShowForm(false)} 
+                  className="form-button" 
+                  style={{ backgroundColor: "#ccc", color: "#333" }}
+                >
                   Batal
                 </button>
               </div>
