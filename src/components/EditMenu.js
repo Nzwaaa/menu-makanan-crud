@@ -18,111 +18,58 @@ const EditMenu = ({ menu, onSave, onCancel }) => {
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "rgba(0,0,0,0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 9999,
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "#fff",
-          padding: "30px",
-          borderRadius: "10px",
-          width: "400px",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-        }}
-      >
-        <style>
-          {`
-            .input-wrapper label {
-              font-weight: bold;
-              display: block;
-              margin-bottom: 6px;
-            }
-            .input-wrapper input,
-            .input-wrapper select {
-              width: 100%;
-              padding: 10px;
-              border-radius: 5px;
-              border: 1px solid #ccc;
-              box-sizing: border-box;
-            }
-            .form-button {
-              padding: 10px 16px;
-              border: none;
-              border-radius: 5px;
-              cursor: pointer;
-            }
-          `}
-        </style>
-
-        <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Edit Menu</h2>
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-        >
-          <div className="input-wrapper">
+    <div className="edit-modal-overlay">
+      <div className="edit-modal-container">
+        <h2 className="edit-modal-title">Edit Menu</h2>
+        <form onSubmit={handleSubmit} className="edit-form">
+          <div className="form-group">
             <label>Nama Menu</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              className="form-input"
             />
           </div>
 
-          <div className="input-wrapper">
+          <div className="form-group">
             <label>Kategori</label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
-            >
-              <option value="Makanan">Makanan</option>
-              <option value="Minuman">Minuman</option>
-            </select>
+              className="form-select"
+              >
+                <option value="Makanan">Makanan</option>
+                <option value="Minuman">Minuman</option>
+                </select>
           </div>
 
-          <div className="input-wrapper">
-            <label>Harga</label>
+          <div className="form-group">
+            <label>Harga (Rp)</label>
             <input
               type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required
+              className="form-input"
             />
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "20px",
-            }}
-          >
-            <button
-              type="submit"
-              className="form-button"
-              style={{ backgroundColor: "#4CAF50", color: "#fff" }}
-            >
-              Simpan
-            </button>
+          <div className="form-actions">
             <button
               type="button"
               onClick={onCancel}
-              className="form-button"
-              style={{ backgroundColor: "#ccc", color: "#333" }}
+              className="cancel-button"
             >
               Batal
+            </button>
+            <button
+              type="submit"
+              className="submit-button"
+            >
+              Simpan Perubahan
             </button>
           </div>
         </form>

@@ -3,23 +3,16 @@ import MenuItem from "./MenuItem";
 
 const MenuList = ({ menuItems, onEdit, onDelete }) => {
   return (
-    <div style={{ padding: "20px", maxWidth: "1000px", margin: "0 auto" }}>
-      <div style={{ overflowX: "auto" }}>
-        <table
-          border="1"
-          cellPadding="10"
-          cellSpacing="0"
-          style={{
-            width: "100%",
-            marginTop: "20px",
-            borderCollapse: "collapse",
-            backgroundColor: "#fff",
-            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-            minWidth: "600px", // biar tabel tetap bisa di-scroll di layar kecil
-          }}
-        >
+    <div className="menu-list-container">
+      {menuItems.length === 0 ? (
+        <div className="empty-state">
+          <i className="fas fa-utensils empty-icon"></i>
+          <p>Belum ada menu yang tersedia. Tambahkan menu pertama Anda!</p>
+        </div>
+      ) : (
+        <table className="menu-table" cellPadding="10" cellSpacing="0">
           <thead>
-            <tr style={{ backgroundColor: "#f2f2f2" }}>
+            <tr className="table-header">
             <th style={{ width: "30%" }}>Nama Menu</th>
             <th style={{ width: "20%" }}>Kategori</th>
             <th style={{ width: "20%" }}>Harga</th>
@@ -28,16 +21,11 @@ const MenuList = ({ menuItems, onEdit, onDelete }) => {
           </thead>
           <tbody>
             {menuItems.map((item) => (
-              <MenuItem
-                key={item.id}
-                item={item}
-                onEdit={onEdit}
-                onDelete={onDelete}
-              />
+              <MenuItem key={item.id} item={item} onEdit={onEdit} onDelete={onDelete} />
             ))}
           </tbody>
         </table>
-      </div>
+      )}
     </div>
   );
 };

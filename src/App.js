@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import './styles/MenuApp.css';
+import './styles/App.css';
+import './components/app-bar.js'
 import MenuList from "./components/MenuList";
 import AddMenu from "./components/AddMenu";
 import EditMenu from "./components/EditMenu";
@@ -11,60 +14,59 @@ const App = () => {
     { id: 2, name: "Mie Ayam", category: "Makanan", price: 12000 },
   ]);
 
-  const [editingMenu, setEditingMenu] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [menuToEdit, setMenuToEdit] = useState(null);
 
   const handleAddMenu = (newMenu) => {
     setMenuItems([...menuItems, newMenu]);
   };
 
   const handleEditMenu = (menu) => {
-    setEditingMenu(menu);
+    setMenuToEdit(menu);
+    setIsEditing(true);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setMenuToEdit(null);
   };
 
   const handleDeleteMenu = (id) => {
     const updatedMenuItems = menuItems.filter((item) => item.id !== id);
     setMenuItems(updatedMenuItems);
   };
+  
 
   const handleSaveMenu = (updatedMenu) => {
     const updatedMenuItems = menuItems.map((item) =>
       item.id === updatedMenu.id ? updatedMenu : item
     );
     setMenuItems(updatedMenuItems);
-    setEditingMenu(null);
+    setIsEditing(false);
+    setMenuToEdit(null);
   };
 
-  
   const filteredMenuItems = menuItems.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div>
-      <h1 style={{ textAlign: "center" }}>Daftar Menu</h1>
-  
-   
-      <div style={{ textAlign: "center", marginBottom: "-15px" }}>
+    <h1 className="app-title">Daftar Menu Makanan</h1>
+      <div className="search-container">
         <input
           type="text"
           placeholder="Cari menu ..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            padding: "10px",
-            width: "100%",
-            maxWidth: "80%",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            boxSizing: "border-box",
-          }}
+          className="search-input"
         />
       </div>
-  
+
       <AddMenu onAdd={handleAddMenu} />
-  
-      {editingMenu ? (
-        <EditMenu menu={editingMenu} onSave={handleSaveMenu} />
+
+      {isEditing ? (
+        <EditMenu menu={menuToEdit} onSave={handleSaveMenu} onCancel={handleCancel}/>
       ) : filteredMenuItems.length > 0 ? (
         <MenuList
           menuItems={filteredMenuItems}
@@ -72,13 +74,12 @@ const App = () => {
           onDelete={handleDeleteMenu}
         />
       ) : (
-        <p style={{ textAlign: "center", color: "gray", marginTop: "20px" }}>
+        <p className="no-menu-message">
           Menu yang Anda cari tidak tersedia.
         </p>
       )}
     </div>
   );
-  
 };
 
 export default App;
