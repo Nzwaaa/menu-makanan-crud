@@ -51,33 +51,48 @@ const App = () => {
   );
 
   return (
-    <div>
-    <h1 className="app-title">Daftar Menu Makanan</h1>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Cari menu ..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
-        />
+    <div className="app">
+      <div className="app-main">
+        <div className="app-container">
+          <div className="centered-container">
+            <main className="main-content">
+              <div className="dashboard-container">
+                  <h1 className="app-title">Daftar Menu</h1>
+
+                  <div className="search-wrapper">
+                    <div className="search-container">
+                      <i className="fas fa-search search-icon"></i>
+                      <input
+                        type="text"
+                        placeholder="Cari menu..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="search-input"
+                      />
+                    </div>
+                    <AddMenu onAdd={handleAddMenu} />
+                  </div>
+
+                {isEditing ? (
+                  <EditMenu 
+                    menu={menuToEdit} 
+                    onSave={handleSaveMenu} 
+                    onCancel={handleCancel}
+                  />
+                ) : (
+                  <MenuList
+                    menuItems={filteredMenuItems}
+                    onEdit={handleEditMenu}
+                    onDelete={handleDeleteMenu}
+                    searchTerm={searchTerm}
+                  />
+                )}
+                <AddMenu onAdd={handleAddMenu} />
+              </div>
+            </main>
+          </div>
+        </div>
       </div>
-
-      <AddMenu onAdd={handleAddMenu} />
-
-      {isEditing ? (
-        <EditMenu menu={menuToEdit} onSave={handleSaveMenu} onCancel={handleCancel}/>
-      ) : filteredMenuItems.length > 0 ? (
-        <MenuList
-          menuItems={filteredMenuItems}
-          onEdit={handleEditMenu}
-          onDelete={handleDeleteMenu}
-        />
-      ) : (
-        <p className="no-menu-message">
-          Menu yang Anda cari tidak tersedia.
-        </p>
-      )}
     </div>
   );
 };

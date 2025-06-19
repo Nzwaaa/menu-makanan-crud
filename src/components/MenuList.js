@@ -15,7 +15,7 @@ const MenuList = ({ menuItems, onEdit, onDelete }) => {
             <tr className="table-header">
             <th style={{ width: "30%" }}>Nama Menu</th>
             <th style={{ width: "20%" }}>Kategori</th>
-            <th style={{ width: "20%" }}>Harga</th>
+            <th style={{ width: "25%" }}>Harga</th>
             <th style={{ width: "10%" }}>Aksi</th>
             </tr>
           </thead>

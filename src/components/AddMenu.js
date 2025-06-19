@@ -27,7 +27,7 @@ const AddMenu = ({ onAdd }) => {
           <img 
             src={addMenuIcon} 
             alt="Tambah Menu" 
-            className="add-button-icon"
+            className="add-icon"
           />
         </button>
       ) : (

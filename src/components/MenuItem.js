@@ -2,29 +2,40 @@ import React from "react";
 
 const MenuItem = ({ item, onEdit, onDelete }) => {
   return (
-    <tr className="menu-item-row">
-      <td className="menu-name">{item.name}</td>
-      <td className="menu-category">{item.category}</td>
-      <td className="menu-price">Rp {item.price.toLocaleString("id-ID")}</td>
+    <tr className="menu-item">
+      <td className="menu-name">
+        <div className="menu-name-wrapper">
+          <span>{item.name}</span>
+        </div>
+      </td>
+      <td className="menu-category">
+        <span className={`category-badge ${item.category.toLowerCase()}`}>
+          {item.category}
+        </span>
+      </td>
+      <td className="menu-price">
+        <span className="price-value">
+          Rp {item.price.toLocaleString("id-ID")}
+        </span>
+      </td>
       <td className="menu-actions">
-        <div className="button-edit-delete">
-        <button 
-          onClick={() => onEdit(item)} 
-          className="edit-button"
-        >
-          <i className="fas fa-edit"></i>Edit
-        </button>
-        <button
-          onClick={() => {
-            const confirmDelete = window.confirm(`Yakin ingin menghapus menu "${item.name}"?`);
-            if (confirmDelete) {
-              onDelete(item.id);
-            }
-          }}
-          className="delete-button"
-        >
-          <i className="fas fa-trash"></i>Hapus
-        </button>
+        <div className="actions-wrapper">
+          <button 
+            onClick={() => onEdit(item)} 
+            className="btn btn-warning"
+          >
+            <i className="fas fa-edit"></i> Edit
+          </button>
+          <button
+            onClick={() => {
+              if (window.confirm(`Yakin ingin menghapus menu "${item.name}"?`)) {
+                onDelete(item.id);
+              }
+            }}
+            className="btn btn-danger"
+          >
+            <i className="fas fa-trash"></i> Hapus
+          </button>
         </div>
       </td>
     </tr>

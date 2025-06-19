@@ -1,78 +1,100 @@
 import React, { useState, useEffect } from "react";
 
 const EditMenu = ({ menu, onSave, onCancel }) => {
-  const [name, setName] = useState(menu.name);
-  const [category, setCategory] = useState(menu.category);
-  const [price, setPrice] = useState(menu.price);
+  const [formData, setFormData] = useState({
+    name: menu.name,
+    category: menu.category,
+    price: menu.price
+  });
 
   useEffect(() => {
-    setName(menu.name);
-    setCategory(menu.category);
-    setPrice(menu.price);
+    setFormData({
+      name: menu.name,
+      category: menu.category,
+      price: menu.price
+    });
   }, [menu]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedMenu = { ...menu, name, category, price };
+    const updatedMenu = { ...menu, ...formData };
     onSave(updatedMenu);
   };
 
   return (
-    <div className="edit-modal-overlay">
-      <div className="edit-modal-container">
-        <h2 className="edit-modal-title">Edit Menu</h2>
-        <form onSubmit={handleSubmit} className="edit-form">
-          <div className="form-group">
-            <label>Nama Menu</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="form-input"
-            />
-          </div>
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h2 className="modal-title">Edit Menu</h2>
+        </div>
+        <div className="modal-body">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name" className="form-label">Nama Menu</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="form-control"
+                required
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Kategori</label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              required
-              className="form-select"
+            <div className="form-group">
+              <label htmlFor="category" className="form-label">Kategori</label>
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className="form-control"
+                required
               >
                 <option value="Makanan">Makanan</option>
                 <option value="Minuman">Minuman</option>
-                </select>
-          </div>
+              </select>
+            </div>
 
-          <div className="form-group">
-            <label>Harga (Rp)</label>
-            <input
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              required
-              className="form-input"
-            />
-          </div>
+            <div className="form-group">
+              <label htmlFor="price" className="form-label">Harga (Rp)</label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                className="form-control"
+                required
+              />
+            </div>
 
-          <div className="form-actions">
-            <button
-              type="button"
-              onClick={onCancel}
-              className="cancel-button"
-            >
-              Batal
-            </button>
-            <button
-              type="submit"
-              className="submit-button"
-            >
-              Simpan Perubahan
-            </button>
-          </div>
-        </form>
+            <div className="form-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+              <button
+                type="button"
+                onClick={onCancel}
+                className="btn btn-danger"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                className="btn btn-primary"
+              >
+                Simpan Perubahan
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
